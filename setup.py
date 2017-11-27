@@ -14,7 +14,7 @@ setup(name='mcrp_utils',
       #    Y -- minor version. Increase, when new functionality is added.
       #
       #    Z -- update, increase, when a bug is fixed.
-      version='1.0.1',
+      version='1.1.1',
       description='MCNP-related packages. Uitlities',
       author='A. Travleev',
       author_email='anton.travleev@kit.edu',
