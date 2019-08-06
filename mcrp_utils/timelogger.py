@@ -19,7 +19,7 @@ class Timer(object):
         if self.active:
             t = time.time()
             if message:
-                print self.__fm.format(t - self.__t, message)
+                print(self.__fm.format(t - self.__t, message))
             self.__t = t
 
 
