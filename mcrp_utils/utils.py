@@ -1,9 +1,14 @@
 import re
 
+newline_re = re.compile('[\r\n]+')
+
 
 def shorten(s, N=80):
     """
     Return short representation of string s.
+
+    If len(s) <= N return the whole s. Otherwise return string containing the
+    begin and end of s.
     """
     if len(s) <= N:
         return s[:]
@@ -14,31 +19,42 @@ def shorten(s, N=80):
 
 def newlineindex(mlstring, start=0):
     """
-    Return two indices, for the end of the 1-st line and start of the next one.
+    For the multi-line string ``mlstring`` Return two indices, for the end of
+    the 1-st line and start of the next one.
     """
-    r = re.compile('[\r\n]+')
-    m = r.search(mlstring, start)
+    global newline_re
+    m = newline_re.search(mlstring, start)
     return m.start(), m.end()
 
 
-def nol(txt, start=None, end=None):
+def nol(mlstring, start=None, end=None):
     """
-    Return number of lines in the multi-line string txt.
+    Return number of lines in the multi-line string ``mlstring``.
+
+    Optional arguments ``start`` and ``end`` have the same meaning as in
+    a string's ``count`` method.
     """
     if start is None:
         start = 0
     if end is None:
-        end = len(txt)
-    if '\r' in txt:
-        return txt.count('\r', start, end) + 1
+        end = len(mlstring)
+    if '\r' in mlstring:
+        return mlstring.count('\r', start, end) + 1
     else:
-        return txt.count('\n', start, end) + 1
+        return mlstring.count('\n', start, end) + 1
 
 
 def zip_columns(c1, c2, valign='t'):
     """
-    Concatenate lines from tuples c1 and c2 together and return a tuple of
+    Concatenate lines from iterables c1 and c2 together and return a tuple of
     obtained lines. The length of the returned tuple is max(len(c1), len(c2)).
+
+    If ``c1`` or ``c2`` has less elements than the other onve, it is augmented
+    with empty strings. Whether the empty strings are added at the begin or
+    to the end -- depends on the optional argument ``valign``.
+
+    ``valign`` is a character specifying the vertical alignment of the column
+    with less elements. Can be ``t``, ``b`` or ``c``.
     """
 
     # Make c1 and c2 the same length
