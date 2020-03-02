@@ -17,6 +17,7 @@ setup(
     long_description_content_type=long_descr_type,
     author='A. Travleev',
     author_email='anton.travleev@gmail.com',
+    url='https://github.com/travleev/mcrp_utils',
     packages=['mcrp_utils'],
     keywords='MCNP utilities',
     setup_requires=['setuptools_scm'],
