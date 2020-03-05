@@ -13,12 +13,13 @@ for plat in "$tags"; do
     image=quay.io/pypa/$plat;
     
     # get the latest image
-    docker pull $image;
+    # docker pull $image;
 
     cd "$pack"
     # Create the dist folder here, otherwise it will be created within docker with root ownership
-    mkdir -p dist
+    mkdir -p dock-dist1
+    mkdir -p dock-dist2
 
     # run build inside the docker image
-    docker run --rm -v `pwd`:/_pack -v "$cdir":/_build_wheels $image /_build_wheels/build_wheels.sh
+    docker run --rm -e PLAT=$plat -v `pwd`:/_pack -v "$cdir":/_build_wheels $image /_build_wheels/build_wheels.sh
 done
