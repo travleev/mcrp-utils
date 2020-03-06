@@ -12,7 +12,7 @@ cd /_pack
 
 # Unique folder to place generated whell
 dd1=`mktemp -d -p . dock-dist1-XXX`
-dd2=`mktemp -d -p . dock-dist2-XXX`
+# dd2=`mktemp -d -p . dock-dist2-XXX`
 
 for PYBIN in /opt/python/cp27*/bin; do
     "${PYBIN}/pip" install -r dev-requirements.txt
@@ -22,8 +22,8 @@ for PYBIN in /opt/python/cp27*/bin; do
     rm -rf build/ dist/
     "${PYBIN}/pip" wheel . -w $dd1 --no-deps
 
-    rm -rf build/ dist/
-    "${PYBIN}/python" setup.py bdist_wheel --dist-dir $dd2 
+    # rm -rf build/ dist/
+    # "${PYBIN}/python" setup.py bdist_wheel --dist-dir $dd2 
 done
 
 # Bundle external shared libraries into the wheels generated at the previus
@@ -32,6 +32,6 @@ for whl in $dd1/*.whl; do
     auditwheel repair "$whl"  --plat $PLAT -w dock-dist1
 done
 
-for whl in $dd2/*.whl; do
-    auditwheel repair "$whl"  --plat $PLAT -w dock-dist2
-done
+# for whl in $dd2/*.whl; do
+#     auditwheel repair "$whl"  --plat $PLAT -w dock-dist2
+# done
